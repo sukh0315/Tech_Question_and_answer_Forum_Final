@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Tech_Question_and_answer_Forum_Final.Models.Question>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Questions</h1>
+
+<p>
+    <a class="btn  btn-primary" asp-action="Create">+ Ask a Question</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Details)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ForumMember)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Details)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ForumMember.Email)
+            </td>
+            <td>
+
+                @if (User.IsInRole("forum_member") && User.Identity.Name.Equals(item.ForumMember.Email))
+                {
+                <a class="btn  btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                <a class="btn  btn-primary" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                }
+                <a class="btn  btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a>
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

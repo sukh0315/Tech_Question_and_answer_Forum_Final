@@ -1,0 +1,54 @@
+﻿@model Tech_Question_and_answer_Forum_Final.Models.QuestionAndAnswers
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Question</h4>
+    <hr />
+
+    <h3> <u>@Model.Question.Title</u></h3>
+    <h5> Asked By @Model.Question.ForumMember.Name Email:@Model.Question.ForumMember.Email </h5>
+
+    <p> @Model.Question.Details</p>
+
+
+    <br>
+    <br>
+
+
+    <div>
+        <a class="btn btn-primary" href="/Answers/Create/@Model.Question.Id">Drop An Answer</a> 
+
+    </div>
+
+    <h5>Answers </h5>
+
+
+    @foreach (var item in Model.Answers)
+    {
+<div class="card">
+    <h5 class="card-header">Answer -  By @item.ForumMember.Name Email: @item.ForumMember.Email</h5>
+    <div class="card-body">
+
+        <p class="card-text">@item.Contents</p>
+
+    </div>
+    <div>
+        @if (User.Identity.Name.Equals(item.ForumMember.Email))
+        {
+        <a class="btn btn-primary" href="/Answers/Edit/@item.Id">Edit Your Answer</a>
+        }
+
+    </div>
+
+</div>
+    }
+
+
+
+</div>
+
